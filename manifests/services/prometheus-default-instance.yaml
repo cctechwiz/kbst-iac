@@ -1,0 +1,42 @@
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: default-instance
+  namespace: default
+  labels:
+    prometheus: default-instance
+spec:
+  serviceAccountName: prometheus-default-instance
+  serviceMonitorSelector:
+    matchLabels:
+      prometheus-instance: default-instance
+  resources:
+    requests:
+      memory: 2Gi
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: prometheus-default-instance
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: prometheus-instance
+subjects:
+- kind: ServiceAccount
+  name: prometheus-default-instance
+  namespace: default
+
+---
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: prometheus-default-instance
+  namespace: default
+

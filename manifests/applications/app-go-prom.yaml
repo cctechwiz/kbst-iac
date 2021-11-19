@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: app-go-prom
+  labels:
+    app: app-go-prom
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-go-prom
+  template:
+    metadata:
+      labels:
+        app: app-go-prom
+    spec:
+      containers:
+        - image: ghcr.io/cctechwiz/kbst-app-go-prom
+          name: app-go-prom
+          ports:
+            - containerPort: 2112
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-go-prom-svc
+  labels:
+    app: app-go-prom
+spec:
+  selector:
+    app: app-go-prom
+  ports:
+    - name: metrics
+      port: 2112
+      targetPort: 2112
+      protocol: TCP
+  type: LoadBalancer
+

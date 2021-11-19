@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: app-go-prom-monitor
+  namespace: operator-prometheus
+  labels:
+    app: app-go-prom
+    prometheus-instance: default-instance
+spec:
+  selector:
+    matchLabels:
+      app: app-go-prom
+  endpoints:
+  - port: metrics
+    interval: 15s
+
