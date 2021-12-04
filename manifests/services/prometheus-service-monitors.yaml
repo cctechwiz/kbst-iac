@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: app-go-prom
+  name: app-go-prom-monitor
   namespace: default
   labels:
     prometheus-instance: default-instance

@@ -8,7 +8,6 @@ module "application_custom_manifests" {
 
   configuration = {
     apps = {
-      namespace = "applications"
 
       resources = [
         "${path.root}/manifests/applications/namespace.yaml",
